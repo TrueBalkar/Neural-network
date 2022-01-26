@@ -14,8 +14,11 @@ from keras import backend as K
 from sklearn.model_selection import train_test_split
 from keras.metrics import MeanIoU
 
+print("Enter path to the dataset: ")
+path = input()
+
 # Load data from csv file, extract encoded pixels to create masks for training
-masks = pd.read_csv(r"/content/train_ship_segmentations_v2.csv")
+masks = pd.read_csv(fr"{path}/train_ship_segmentations_v2.csv")
 masks['ships'] = masks['EncodedPixels'].map(lambda c_row: 1 if isinstance(c_row, str) else 0)
 unique_img_ids = masks.groupby('ImageId').agg({'ships': 'sum'}).reset_index()
 unique_img_ids['is_ship'] = unique_img_ids['ships'].map(lambda x: 1.0 if x > 0 else 0.0)
@@ -39,9 +42,9 @@ def rle_decode(mask_rle, IMG_SIZE=(768, 768)):
 
 
 # Create directories for images and masks used for training
-os.mkdir("/content/data/")
-os.mkdir("/content/data/masks/")
-os.mkdir("/content/data/images/")
+os.mkdir(path + "/data/")
+os.mkdir(path + "/data/masks/")
+os.mkdir(path + "/data/images/")
 
 # Search for all images with number of ships greater than 13
 ids_of_images = unique_img_ids.loc[unique_img_ids.ships > 13, 'ImageId'].tolist()
@@ -59,14 +62,14 @@ for ImageId in ids_of_images:
         all_masks += rle_decode(img_masks, (768, 768))
 
     print("Writing: " + ImageId)
-    cv2.imwrite("/content/data/masks/" + ImageId, all_masks)
-    shutil.copy("/content/train_v2/" + ImageId, "/content/data/images")
+    cv2.imwrite(path + "/data/masks/" + ImageId, all_masks)
+    shutil.copy(path + "/train_v2/" + ImageId, path + "/data/images")
 
 # Use minmaxscaler instead of just dividing by 255 while patching
 scaler = MinMaxScaler()
 
 # Define root directory from which all the images and masks will be taken
-root_directory = '/content/data/'
+root_directory = path + '/data/'
 
 # Define size of patched images
 # 256 stands for 256x256 pixels
@@ -285,7 +288,10 @@ history1 = model.fit(X_train, y_train,
                      shuffle=True)
 
 # Save the model
-model.save("/content/drive/MyDrive/model_weights/model_4.h5")
+print("Enter path for saving model: ")
+lol = input()
+
+model.save(lol + "/model_4.h5")
 
 # IOU
 y_pred = model.predict(X_test)
