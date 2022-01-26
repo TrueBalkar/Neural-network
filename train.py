@@ -42,9 +42,12 @@ def rle_decode(mask_rle, IMG_SIZE=(768, 768)):
 
 
 # Create directories for images and masks used for training
-os.mkdir(path + "/data/")
-os.mkdir(path + "/data/masks/")
-os.mkdir(path + "/data/images/")
+try:
+    os.mkdir(path + "/data/")
+    os.mkdir(path + "/data/masks/")
+    os.mkdir(path + "/data/images/")
+except:
+    pass
 
 # Search for all images with number of ships greater than 13
 ids_of_images = unique_img_ids.loc[unique_img_ids.ships > 13, 'ImageId'].tolist()
