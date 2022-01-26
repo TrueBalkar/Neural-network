@@ -97,12 +97,10 @@ for i in range(patches_img.shape[0]):
     for j in range(patches_img.shape[1]):
         single_patch_img = patches_img[i, j, :, :]
         # Use minmaxscaler instead of just dividing by 255.
-        single_patch_img = scaler.fit_transform(single_patch_img.reshape(-1, single_patch_img.shape[-1])).reshape(
-            single_patch_img.shape)
+        single_patch_img = scaler.fit_transform(single_patch_img.reshape(-1, single_patch_img.shape[-1])).reshape(single_patch_img.shape)
 
         # single_patch_img = (single_patch_img.astype('float32')) / 255.
-        single_patch_img = single_patch_img[
-            0]  # Drop the extra unecessary dimension that patchify adds.
+        single_patch_img = single_patch_img[0]  # Drop the extra unecessary dimension that patchify adds.
         testing_image_patches.append(single_patch_img)
 
 testing_image_patches = np.array(testing_image_patches)
