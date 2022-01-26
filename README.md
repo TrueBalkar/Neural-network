@@ -16,9 +16,3 @@ Inference is not very different in that aspect. Firstly we choose any image we w
         train.py
         model\
                 model_4.h5
-        Some images for testing\
-                01914baf2.jpg
-                54f2e94d4.jpg
-                7077735cd.jpg
-                b22e2f206.jpg
-                e4ef760dd.jpg
