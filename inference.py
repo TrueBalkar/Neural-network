@@ -9,29 +9,29 @@ from sklearn.preprocessing import MinMaxScaler
 from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument("ImagePath", help="Path to the picture (.jpg).")
+parser.add_argument("ModelPath", help="Path to the model (.h5).")
+args = parser.parse_args()
 
-print("Enter path to the picture .jpg: ")
-testing_image = input()
+path = Path(args.ImagePath)
 
-path = Path(testing_image)
-
-if not path.is_file():
-    print(f'The file {testing_image} does not exist')
-    exit()
-if testing_image[-4:] != ".jpg":
+if args.ImagePath[-4:] != ".jpg":
     print("Please enter .jpg file")
     exit()
-
-
-print("Enter path to the model .h5: ")
-load_model_path = input()
-
 if not path.is_file():
-    print(f'The file {load_model_path} does not exist')
+    print(f'The file {args.ImagePath} does not exist')
     exit()
-if load_model_path[-3:] != ".h5":
+
+path = Path(args.ModelPath)
+
+if args.ModelPath[-3:] != ".h5":
     print("Please enter .h5 file")
+    exit()
+if not path.is_file():
+    print(f'The file {args.ModelPath} does not exist')
     exit()
 
 
@@ -75,13 +75,13 @@ focal_loss = sm.losses.CategoricalFocalLoss()
 total_loss = dice_loss + (1 * focal_loss)
 
 # Load pretrained model
-model = load_model(load_model_path,
+model = load_model(args.ModelPath,
                    custom_objects={'dice_loss_plus_1focal_loss': total_loss,
                                    'jacard_coef': jacard_coef})
 
 testing_image_patches = []
 
-image = cv2.imread(testing_image)  # Read each image as BGR
+image = cv2.imread(args.ImagePath)  # Read each image as BGR
 SIZE_X = 768
 SIZE_Y = 768
 image = Image.fromarray(image)
@@ -114,14 +114,9 @@ for l in range(9):
             if predicted_img[i][j][0] < predicted_img[i][j][1]:
                 buffer[l][i][j] = 1
 
-pred_mask = np.zeros((768, 768, 3))
-for i in range(3):
-    for j in range(3):
-        for n in range(256):
-            for m in range(256):
-                for l in range(3):
-                    pred_mask[i*256 + n][j*256 + m][l] = buffer[3*i+j][n][m]
-
+pred_mask = np.block([[buffer[0].T, buffer[1].T, buffer[2].T],
+                      [buffer[3].T, buffer[4].T, buffer[5].T],
+                      [buffer[6].T, buffer[7].T, buffer[8].T]])
 
 img = cv2.imread(testing_image)
 img_masks = masks.loc[masks['ImageId'] == testing_image[-13:], 'EncodedPixels'].tolist()
