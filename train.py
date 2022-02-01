@@ -13,7 +13,6 @@ from sklearn.preprocessing import MinMaxScaler
 from keras import backend as K
 from sklearn.model_selection import train_test_split
 from keras.metrics import MeanIoU
-from pathlib import Path
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -21,15 +20,12 @@ parser.add_argument("DatasetPath", help="Path to the dataset.")
 parser.add_argument("SaveModelPath", help="Path to save the model.")
 args = parser.parse_args()
 
-path = Path(args.DatasetPath)
-
-if not path.isdir():
+if not os.path.isdir(args.DatasetPath):
     print(f'The directory {args.DatasetPath} does not exist')
     exit()
     
-path = Path(args.SaveModelPath)
 
-if not path.isdir():
+if not os.path.isdir(args.SaveModel.Path):
     print(f'The directory {args.SaveModelPath} does not exist')
     exit()
 
