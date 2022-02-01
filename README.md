@@ -31,3 +31,11 @@ Inference is not very different in that aspect. Firstly we choose any image we w
         train.py
         model\
                 model_4.h5
+# About model_4.h5
+This model was trained on Airbus Ship Detection Challenge dataset where amount of ships on the image was 14 or 15. 
+- Amount of epochs: 70
+- Time per epoch: about 12 minutes
+- Amount of training material: about 130 full scale images and 1200 patched ones.
+- Accuracy of the model (amount of predicted pixels): 0.992
+- Loss of the model: 0.56
+- Actual accuracy of the model: 0.83835983
