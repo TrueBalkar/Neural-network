@@ -36,6 +36,6 @@ This model was trained on Airbus Ship Detection Challenge dataset where amount o
 - Amount of epochs: 70
 - Time per epoch: about 12 minutes
 - Amount of training material: about 130 full scale images and 1200 patched ones.
-- Accuracy of the model (amount of predicted pixels): 0.992
-- Loss of the model: 0.56
+- Accuracy of the model (amount of predicted pixels): 0.9949
+- Loss of the model: 0.5677
 - Actual accuracy of the model: 0.83835983
