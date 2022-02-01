@@ -7,9 +7,10 @@ Before you can run this scipts, you need to be sure, that every needed library f
 To train the model you need to download dataset Airbus Ship Detection Challenge from kaggle. Once you downloaded it, prepare empty folder in which all the neccesary data will be stored, and unzip everything from dataset into this folder. Once done, you may start training your deep learning neural network model. To do so, you need download file train.py from this repository, install everything specified in requirentments.txt file and you are pretty much ready to go. The first thing to do after everything is ready is to start train.py in console like this:
 
     C:\.\python train.py C:\..\dataset C:\...\trained_models
-.Where C:\.\ is path to the train.py file
-.      C:\..\dataset is path to the dataset directory you created beforehand, it is a directory where train_v2, test_v2 etc. is located
-.      C:\...\trained_models is path to the directory where you wish to save your trained models
+Where 
+- C:\.\ is path to the train.py file
+- C:\..\dataset is path to the dataset directory you created beforehand, it is a directory where train_v2, test_v2 etc. is located
+- C:\...\trained_models is path to the directory where you wish to save your trained models
 # How to test model?
 
 # Description of solution
