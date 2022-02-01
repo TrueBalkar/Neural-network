@@ -1,3 +1,21 @@
+To start working with this program you will need to install python and some libraries for python,
+through pip install. It is highly advisable for you to install python 3.9, 
+as this program was tested only on python 3.9.
+After you download and install python, use console command pip install name_of_the_module
+to download the next modules:
+
+# Modules:
+TensorFlow (pip install tensorflow)
+Patchify (pip install patchify)
+Segmentation models (pip install segmentation_models)
+NumPy (pip install numpy)
+Pandas (pip install pandas)
+OpenCV (pip install opencv-python)
+PIL (pip install Pillow)
+sklearn (pip install scipy scikit-learn)
+MatPlotLib (pip install matplotlib)
+
+
 # All imports
 import numpy as np
 import pandas as pd
