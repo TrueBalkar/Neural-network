@@ -14,8 +14,26 @@ from keras import backend as K
 from sklearn.model_selection import train_test_split
 from keras.metrics import MeanIoU
 
-print("Enter path to the dataset: ")
-path = input()
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("DatasetPath", help="Path to the dataset.")
+parser.add_argument("SaveModelPath", help="Path to save the model.")
+args = parser.parse_args()
+
+path = Path(args.DatasetPath)
+
+if not path.isdir():
+    print(f'The directory {args.DatasetPath} does not exist')
+    exit()
+    
+path = Path(args.SaveModelPath)
+
+if not path.isdir():
+    print(f'The directory {args.SaveModelPath} does not exist')
+    exit()
+
+path = args.DatasetPath
 
 # Load data from csv file, extract encoded pixels to create masks for training
 masks = pd.read_csv(fr"{path}/train_ship_segmentations_v2.csv")
@@ -291,10 +309,7 @@ history1 = model.fit(X_train, y_train,
                      shuffle=True)
 
 # Save the model
-print("Enter path for saving model: ")
-lol = input()
-
-model.save(lol + "/model_4.h5")
+model.save(args.SaveModelPath + "/model_4.h5")
 
 # IOU
 y_pred = model.predict(X_test)
