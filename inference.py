@@ -14,6 +14,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("ImagePath", help="Path to the picture (.jpg).")
 parser.add_argument("ModelPath", help="Path to the model (.h5).")
+parser.add_argument("TrainShipSegmentationCSVPath", help="Path to train_ship_segmentations_v2.csv file.")
 args = parser.parse_args()
 
 path = Path(args.ImagePath)
@@ -34,6 +35,15 @@ if not path.is_file():
     print(f'The file {args.ModelPath} does not exist')
     exit()
 
+path = Path(args.TrainShipSegmentationCSVPath)
+
+if args.TrainShipSegmentationCSVPath[-4:] != ".csv":
+    print("Please enter .csv file")
+    exit()
+if not path.is_file():
+    print(f'The file {args.TrainShipSegmentationCSVPath} does not exist')
+    exit()
+
 
 def rle_decode(mask_rle, IMG_SIZE=(768, 768)):
     """
@@ -52,7 +62,7 @@ def rle_decode(mask_rle, IMG_SIZE=(768, 768)):
 
 
 # Load data from csv file, extract encoded pixels to create masks for training
-masks = pd.read_csv(r"/content/train_ship_segmentations_v2.csv")
+masks = pd.read_csv(args.TrainShipSegmentationCSVPath)
 masks['ships'] = masks['EncodedPixels'].map(lambda c_row: 1 if isinstance(c_row, str) else 0)
 unique_img_ids = masks.groupby('ImageId').agg({'ships': 'sum'}).reset_index()
 unique_img_ids['is_ship'] = unique_img_ids['ships'].map(lambda x: 1.0 if x > 0 else 0.0)
@@ -118,8 +128,8 @@ pred_mask = np.block([[buffer[0].T, buffer[1].T, buffer[2].T],
                       [buffer[3].T, buffer[4].T, buffer[5].T],
                       [buffer[6].T, buffer[7].T, buffer[8].T]])
 
-img = cv2.imread(testing_image)
-img_masks = masks.loc[masks['ImageId'] == testing_image[-13:], 'EncodedPixels'].tolist()
+img = cv2.imread(args.ImagePath)
+img_masks = masks.loc[masks['ImageId'] == args.ImagePath[-13:], 'EncodedPixels'].tolist()
 
 all_masks = np.zeros((768, 768))
 for mask in img_masks:
