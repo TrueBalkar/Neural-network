@@ -25,7 +25,7 @@ if not os.path.isdir(args.DatasetPath):
     exit()
     
 
-if not os.path.isdir(args.SaveModel.Path):
+if not os.path.isdir(args.SaveModelPath):
     print(f'The directory {args.SaveModelPath} does not exist')
     exit()
 
