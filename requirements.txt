@@ -1,67 +1,10 @@
-To start working with this program you will need to install python and some libraries for python,
-through pip install. It is highly advisable for you to install python 3.9, 
-as this program was tested only on python 3.9.
-After you download and install python, use console command pip install name_of_the_module
-to download the next modules:
-
-# Modules:
-TensorFlow (pip install tensorflow)
-Patchify (pip install patchify)
-Segmentation models (pip install segmentation_models)
-NumPy (pip install numpy)
-Pandas (pip install pandas)
-OpenCV (pip install opencv-python)
-PIL (pip install Pillow)
-sklearn (pip install scipy scikit-learn)
-MatPlotLib (pip install matplotlib)
-
-
-# All imports
-import numpy as np
-import pandas as pd
-import os
-import cv2
-import shutil
-from keras.layers import Conv2D, Input, Dropout, concatenate, MaxPooling2D, Conv2DTranspose
-from keras import Model
-from tensorflow.keras.utils import to_categorical
-from patchify import patchify
-from PIL import Image
-import segmentation_models as sm
-from sklearn.preprocessing import MinMaxScaler
-from keras import backend as K
-from sklearn.model_selection import train_test_split
-from keras.metrics import MeanIoU
-from keras.models import load_model
-from pathlib import Path
-import matplotlib.pyplot as plt
-
-# For train.py
-import numpy as np
-import pandas as pd
-import os
-import cv2
-import shutil
-from keras.layers import Conv2D, Input, Dropout, concatenate, MaxPooling2D, Conv2DTranspose
-from keras import Model
-from tensorflow.keras.utils import to_categorical
-from patchify import patchify
-from PIL import Image
-import segmentation_models as sm
-from sklearn.preprocessing import MinMaxScaler
-from keras import backend as K
-from sklearn.model_selection import train_test_split
-from keras.metrics import MeanIoU
-
-# For inference.py
-from keras.models import load_model
-import segmentation_models as sm
-from keras import backend as K
-import cv2
-from PIL import Image
-from patchify import patchify
-import numpy as np
-from sklearn.preprocessing import MinMaxScaler
-from pathlib import Path
-import matplotlib.pyplot as plt
-import pandas as pd
+keras==2.7.0
+matplotlib==3.5.1
+numpy==1.22.1
+opencv_python==4.5.5.62
+pandas==1.4.0
+patchify==0.2.3
+Pillow==9.0.0
+scikit_learn==1.0.2
+segmentation_models==1.0.1
+tensorflow==2.7.0
