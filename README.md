@@ -1,4 +1,4 @@
-# Winstars Technology. Test task for Internship in Data Science.
+# Semantic segmentation neural network on airbus detection chalange dataset
 # Project goal
 The goal of the test project is to build a semantic segmentation model. Prefered tools and notes: tf.keras, Unet architecture for neural network, dice score, python. 
 # Configuration instructions 
