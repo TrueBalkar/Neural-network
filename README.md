@@ -32,9 +32,9 @@ Inference is not very different in that aspect. Firstly we choose any image we w
         model\
                 model.h5
 # About model.h5
-This model was trained on Airbus Ship Detection Challenge dataset where amount of ships on the image was more than 0. 
-Metrics used: jacard coefficient, precision, recall
-Loss functions: dice coefficient loss function
+This model was trained on Airbus Ship Detection Challenge dataset where amount of ships on the image was more than 0.                
+Metrics used: jacard coefficient, precision, recall                     
+Loss functions: dice coefficient loss function                  
 - Amount of epochs: 10
 - Time per epoch: about 20 minutes
 - Amount of training material: about 33k 768x768 images.
